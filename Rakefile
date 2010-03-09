@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "cumulus_csv"
-    gem.summary = %Q{helps you save uploaded csv files containing data to amazon s3, and gives you a way to download and loop through the data in a background process easily}
+    gem.summary = %Q{Helps you save uploaded csv files containing data to amazon s3, and gives you a way to download and loop through the data in a background process easily}
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "ethan.vizitei@gmail.com"
     gem.homepage = "http://github.com/evizitei/cumulus_csv"
     gem.authors = ["evizitei"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "mocha", ">= 0.9.8"
     gem.add_dependency "aws-s3", ">= 0.6.2"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
