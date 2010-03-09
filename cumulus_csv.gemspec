@@ -10,7 +10,11 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["evizitei"]
   s.date = %q{2010-03-09}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{CSV Files: I hate them, you probably do too, but sometimes you need to get data into your system and this is the only way it's happening.  
+
+    If you're deploying a rails app in a cloud setup, you may have troubles if you're trying to store an uploaded file locally and process it later in a background thread (I know I have).  
+
+    cumulus_csv is one way to solve that problem.  You can save your file to your S3 account, and loop over the data inside it at your convenience later.  So it doesn't matter where you're doing the processing, you just need to have the key you used to store the file, and you can process away.}
   s.email = %q{ethan.vizitei@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
