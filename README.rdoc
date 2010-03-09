@@ -2,11 +2,32 @@
 
 CSV Files: I hate them, you probably do too, but sometimes you need to get data into your system and this is the only way it's happening.  
 
-If you're deploying in a cloud setup, you may have troubles if you're trying to store an uploaded file locally and process it.  
+If you're deploying a rails app in a cloud setup, you may have troubles if you're trying to store an uploaded file locally and process it later in a background thread (I know I have).  
 
-cumulus_csv is one way to solve that problem.  You can save your file to your S3 account, and loop over the data inside it at your convenience later.  So it doesn't matter where you're doing the processing, you just need to have the key you used to store the file, and you can process away.
+cumulus_csv is one way to solve that problem.  You can save your file to your S3 account, and loop over the data inside it at your convenience later.  So it doesn't matter where you're doing the processing, you just need to have the key you used to store the file, and you can process away.   
 
-THIS GEM IS DEPENDANT ON AWS::S3!
+THIS GEM IS DEPENDANT ON AWS::S3!         
+
+Since this gem uses AWS::S3, it should be no suprise that you'll need similar auth parameters:
+
+  manager = Cumulus::CSV::DataFileManager.new(
+    :access_key_id     => 'abc', 
+    :secret_access_key => '123'
+  )
+
+this manager has 2 main functions: storing your files as they're uploaded, and letting you iterate over them later when you need to.
+
+To store your file on S3 when you upload it, you'd do something like this:
+
+  key = manager.store_uploaded_file!(params[:uploaded_file])  
+
+That will work for your standard multi part form. The key the file is stored under is returned, it's just the basename of the file.  You can pass this key to a rake task or whatever you're using, and it will be made use of later when you want to process this file:
+
+  manager.each_row_of(key) do |row|
+    #...some processing of this CSV row
+  end
+
+in that block, you can load each row into your database, or send an email based on each one, whatever it is you're trying to accomplish by having your app interact with this data file.
 
 == Note on Patches/Pull Requests
  
