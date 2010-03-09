@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cumulus_csv}
-  s.version = ""
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["evizitei"]
@@ -22,18 +22,21 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.rdoc",
      "Rakefile",
+     "VERSION",
+     "cumulus_csv.gemspec",
      "lib/cumulus_csv.rb",
+     "lib/cumulus_csv/data_file_manager.rb",
      "test/helper.rb",
-     "test/test_cumulus_csv.rb"
+     "test/test_data_file_manager.rb"
   ]
   s.homepage = %q{http://github.com/evizitei/cumulus_csv}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{helps you save uploaded csv files containing data to amazon s3, and gives you a way to download and loop through the data in a background process easily}
+  s.summary = %q{Helps you save uploaded csv files containing data to amazon s3, and gives you a way to download and loop through the data in a background process easily}
   s.test_files = [
     "test/helper.rb",
-     "test/test_cumulus_csv.rb"
+     "test/test_data_file_manager.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -42,13 +45,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_development_dependency(%q<mocha>, [">= 0.9.8"])
       s.add_runtime_dependency(%q<aws-s3>, [">= 0.6.2"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_dependency(%q<mocha>, [">= 0.9.8"])
       s.add_dependency(%q<aws-s3>, [">= 0.6.2"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+    s.add_dependency(%q<mocha>, [">= 0.9.8"])
     s.add_dependency(%q<aws-s3>, [">= 0.6.2"])
   end
 end
