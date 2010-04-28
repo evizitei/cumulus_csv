@@ -47,20 +47,49 @@ class TestDataFileManager < Test::Unit::TestCase
       end
     end  
     
-    context "Stored csv file" do    
-      should "be iterated over row by row" do    
+    context "Stored csv file" do
+      setup do
         AWS::S3::S3Object.expects(:value).with("some_name.csv",BUCKET_NAME).returns("1,2,3\nA,B,C\nx,y,z\n")
-        manager = DataFileManager.new(@auth_hash)
+        @manager = DataFileManager.new(@auth_hash)    
+      end
+            
+      should "be iterated over row by row" do    
         results = []
-        manager.each_row_of("some_name.csv") do |row|  
+        @manager.each_row_of("some_name.csv") do |row|  
           results << row 
         end             
         assert_equal ["1","2","3"],results.first
         assert_equal ["x","y","z"],results.last
+      end 
+    end 
+    
+    context "retrieved csv file" do
+      setup do  
+        class << AWS::S3::S3Object 
+          def stream(file_name, bucket_name)        
+            yield "1,2,3\nA,B,C\nx,y,z\n"
+          end
+        end 
+        @file = DataFileManager.new(@auth_hash).fetch_file("some_name.csv")
+      end
+      
+      should "be able to be retrieved as a file" do 
+        assert_equal "1,2,3\nA,B,C\nx,y,z\n",@file.read 
+      end  
+      
+      should "be able to close when finished" do 
+        assert_nothing_raised do
+          @file.close
+        end
+      end  
+      
+      should "have same name as fetched file" do 
+        assert_equal "some_name.csv",@file.path
       end
     end
                           
-  end
+  end    
+  
   def nueter_aws!  
     AWS::S3::Base.stubs(:establish_connection!)
     AWS::S3::Bucket.stubs(:find)

@@ -34,6 +34,16 @@ module Cumulus
         return name
       end  
       
+      def fetch_file(file_name)
+        File.open(file_name,'w') do |file|
+          AWS::S3::S3Object.stream(file_name, BUCKET_NAME) do |chunk| 
+            file.write chunk
+          end
+        end
+         
+        return File.open(file_name,'r')
+      end
+      
       def each_row_of(file_name) 
         data = AWS::S3::S3Object.value(file_name,BUCKET_NAME)
         ::CSV::Reader.parse(data).each{|row| yield row }
