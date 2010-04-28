@@ -29,6 +29,13 @@ That will work for your standard multi part form. The key the file is stored und
 
 in that block, you can load each row into your database, or send an email based on each one, whatever it is you're trying to accomplish by having your app interact with this data file.
 
+you can also now retrieve the whole file as a readable temporary file (if, for example, you were using an excel file instead which couldn't be processed by the CSV reader).  To do this:
+
+  file = manager.fetch_file(key)
+  data = file.read
+  
+for the time being this just streams the remote file to a temp file in place, which will naturally be removed by the next deployment of your app.
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
