@@ -25,6 +25,11 @@ class TestDataFileManager < Test::Unit::TestCase
         AWS::S3::Bucket.stubs(:find).with(BUCKET_NAME).raises(AWS::S3::S3Exception).then.returns(AWS::S3::Bucket.new(:name=>BUCKET_NAME))
         manager = DataFileManager.new(@auth_hash)
         assert_equal AWS::S3::Bucket, manager.bucket.class
+      end     
+      
+      should "parse out extra config keys" do 
+        AWS::S3::Base.expects(:establish_connection!).with({:access_key_id => 'abc',:secret_access_key => '123'})
+        DataFileManager.new(@auth_hash.merge({:extra_key=>"extra_value"}))
       end
     end    
   

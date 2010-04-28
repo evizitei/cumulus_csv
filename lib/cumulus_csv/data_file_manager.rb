@@ -20,8 +20,11 @@ module Cumulus
     class DataFileManager        
       attr_reader :bucket
       
-      def initialize(connect_params)
-        AWS::S3::Base.establish_connection!(connect_params)
+      def initialize(connect_params)               
+        params = {}
+        allowed_keys = [:access_key_id, :secret_access_key, :server, :port, :use_ssl, :persistent, :proxy]  
+        connect_params.select{|k,v| allowed_keys.index(k)}.each{|arr| params[arr[0]] = arr[1]}
+        AWS::S3::Base.establish_connection!(params)
         cache_bucket
       end  
       
