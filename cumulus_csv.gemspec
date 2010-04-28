@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cumulus_csv}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["evizitei"]
-  s.date = %q{2010-03-09}
+  s.date = %q{2010-04-28}
   s.description = %q{CSV Files: I hate them, you probably do too, but sometimes you need to get data into your system and this is the only way it's happening.  
 
     If you're deploying a rails app in a cloud setup, you may have troubles if you're trying to store an uploaded file locally and process it later in a background thread (I know I have).  
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/evizitei/cumulus_csv}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Helps you save uploaded csv files containing data to amazon s3, and gives you a way to download and loop through the data in a background process easily}
   s.test_files = [
     "test/helper.rb",
